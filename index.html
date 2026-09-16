@@ -3594,6 +3594,16 @@
     <!-- bwip-js & jsPDF dipindahkan ke pemuatan on-demand (SIGAPLib) di atas:
          keduanya hanya dipakai layar Cetak Barcode / Lembar Barcode, jadi tidak
          perlu ikut menahan waktu muat halaman login. -->
+
+    <!-- Firebase Web SDK (v10 compat mode) -->
+    <script src="https://www.gstatic.com/firebasejs/10.9.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.9.0/firebase-auth-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.9.0/firebase-firestore-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.9.0/firebase-storage-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.9.0/firebase-functions-compat.js"></script>
+    <script src="/src/firebase/config.js"></script>
+    <script src="/js/sigap-firebase-adapter.js"></script>
+
 </head>
 <body>
 
@@ -8637,7 +8647,17 @@ let currentGroup = '', groupId = 0;
 
         function _ksExportExcel() {
             if (!_ksRows.length) { showAlert('Info', 'Tidak ada data untuk diekspor.', 'info'); return; }
-            const html = '<html><head><meta charset="UTF-8"></head><body>' + _ksBuildExportHtml() + '</body></html>';
+            const html = '<html><head><meta charset="UTF-8">
+    <!-- Firebase Web SDK (v10 compat mode) -->
+    <script src="https://www.gstatic.com/firebasejs/10.9.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.9.0/firebase-auth-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.9.0/firebase-firestore-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.9.0/firebase-storage-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.9.0/firebase-functions-compat.js"></script>
+    <script src="/src/firebase/config.js"></script>
+    <script src="/js/sigap-firebase-adapter.js"></script>
+
+</head><body>' + _ksBuildExportHtml() + '</body></html>';
             const blob = new Blob(['﻿', html], { type: 'application/vnd.ms-excel' });
             const url  = URL.createObjectURL(blob);
             const a    = document.createElement('a');
@@ -13753,7 +13773,17 @@ let currentGroup = '', groupId = 0;
                 'img { width:46mm; height:46mm; display:block; margin:0 auto; image-rendering:pixelated; }' +
                 'h1 { font-size:12pt; font-weight:700; margin:8px 0 2px; }' +
                 'p { font-size:7pt; color:#555; margin:0; word-break:break-all; max-width:46mm; }' +
-                '</style></head><body onload="window.focus();window.print();window.close();">' +
+                '</style>
+    <!-- Firebase Web SDK (v10 compat mode) -->
+    <script src="https://www.gstatic.com/firebasejs/10.9.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.9.0/firebase-auth-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.9.0/firebase-firestore-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.9.0/firebase-storage-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.9.0/firebase-functions-compat.js"></script>
+    <script src="/src/firebase/config.js"></script>
+    <script src="/js/sigap-firebase-adapter.js"></script>
+
+</head><body onload="window.focus();window.print();window.close();">' +
                 '<div class="lbl"><img src="' + r.url + '"><h1>' + cap + '</h1><p>' + kode + '</p></div>' +
                 '</body></html>');
             w.document.close();
@@ -16654,7 +16684,17 @@ let currentGroup = '', groupId = 0;
                                 img { width: 100%; max-width: 250px; height: auto; image-rendering: pixelated; }
                             }
                         </style>
-                    </head>
+                    
+    <!-- Firebase Web SDK (v10 compat mode) -->
+    <script src="https://www.gstatic.com/firebasejs/10.9.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.9.0/firebase-auth-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.9.0/firebase-firestore-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.9.0/firebase-storage-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.9.0/firebase-functions-compat.js"></script>
+    <script src="/src/firebase/config.js"></script>
+    <script src="/js/sigap-firebase-adapter.js"></script>
+
+</head>
                     <body>
                         <img id="barcode-print-img" src="${dataUrl}" alt="Barcode">
                     </body>
@@ -17111,7 +17151,17 @@ let currentGroup = '', groupId = 0;
                 '.bs-img { display:block; image-rendering:pixelated; }' +
                 '.bs-name { font-weight:700; line-height:1.2; margin-top:1.6mm; }' +
                 '.bs-uom { line-height:1.15; margin-top:0.8mm; color:#333; }' +
-                '</style></head><body>' + sheets + '</body></html>'
+                '</style>
+    <!-- Firebase Web SDK (v10 compat mode) -->
+    <script src="https://www.gstatic.com/firebasejs/10.9.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.9.0/firebase-auth-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.9.0/firebase-firestore-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.9.0/firebase-storage-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.9.0/firebase-functions-compat.js"></script>
+    <script src="/src/firebase/config.js"></script>
+    <script src="/js/sigap-firebase-adapter.js"></script>
+
+</head><body>' + sheets + '</body></html>'
             );
             win.document.close();
 
@@ -17451,7 +17501,17 @@ let currentGroup = '', groupId = 0;
                 th { background-color: #f0f0f0; font-weight: bold; border: 1px solid #000; }
                 td { border: 1px solid #000; }
                 .num { mso-number-format:"\\#\\,\\#\\#0\\.00"; text-align:right; }
-            </style></head><body>`;
+            </style>
+    <!-- Firebase Web SDK (v10 compat mode) -->
+    <script src="https://www.gstatic.com/firebasejs/10.9.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.9.0/firebase-auth-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.9.0/firebase-firestore-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.9.0/firebase-storage-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.9.0/firebase-functions-compat.js"></script>
+    <script src="/src/firebase/config.js"></script>
+    <script src="/js/sigap-firebase-adapter.js"></script>
+
+</head><body>`;
             
             html += `<table border="0">
                 <tr><td colspan="${config.columns.length}"><b>SIGAP</b></td></tr>
