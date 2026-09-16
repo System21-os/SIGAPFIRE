@@ -1,0 +1,90 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    
+    // Helper function: Check if user is authenticated
+    function isAuthenticated() {
+      return request.auth != null;
+    }
+
+    // Helper function: Fetch user document from 'users' collection
+    function getUserData() {
+      return get(/databases/$(database)/documents/users/$(request.auth.uid)).data;
+    }
+
+    // Helper function: Verify user is active (AKTIF)
+    function isActiveUser() {
+      return isAuthenticated() && 
+        exists(/databases/$(database)/documents/users/$(request.auth.uid)) && 
+        (getUserData().status == 'AKTIF' || getUserData().status == 'ACTIVE');
+    }
+
+    // Helper function: Verify active user has allowed role
+    function hasRole(allowedRoles) {
+      return isActiveUser() && (getUserData().role in allowedRoles);
+    }
+
+    // Collection: users (User Profile & Management)
+    match /users/{userId} {
+      // Only active ADMIN can write users. Active users can read their own profile or ADMIN can read all users.
+      allow read: if isActiveUser() && (request.auth.uid == userId || getUserData().role == 'ADMIN');
+      allow create, update, delete: if hasRole(['ADMIN']);
+    }
+
+    // Collection: masterItems (Master SKU Catalog)
+    match /masterItems/{docId} {
+      allow read: if isActiveUser();
+      allow create, update, delete: if hasRole(['ADMIN', 'MANAGER']);
+    }
+
+    // Collection: inbound (Barang Masuk)
+    match /inbound/{docId} {
+      allow read: if isActiveUser();
+      allow create: if isActiveUser(); // All active users (including Stock Keeper) can add Inbound
+      allow update, delete: if hasRole(['ADMIN', 'MANAGER']);
+    }
+
+    // Collection: outbound (Barang Keluar)
+    match /outbound/{docId} {
+      allow read: if isActiveUser();
+      allow create: if isActiveUser(); // All active users (including Stock Keeper) can add Outbound
+      allow update, delete: if hasRole(['ADMIN', 'MANAGER']);
+    }
+
+    // Collection: stockOpname (Stock Opname Audits)
+    match /stockOpname/{docId} {
+      allow read: if hasRole(['ADMIN', 'MANAGER']);
+      allow create, update, delete: if hasRole(['ADMIN', 'MANAGER']);
+    }
+
+    // Collection: expStatus (Expiry Status Overrides)
+    match /expStatus/{docId} {
+      allow read: if isActiveUser();
+      allow write: if isActiveUser();
+    }
+
+    // Collection: itemImages (Image Attachment Metadata)
+    match /itemImages/{docId} {
+      allow read: if isActiveUser();
+      allow write: if hasRole(['ADMIN', 'MANAGER']);
+    }
+
+    // Collection: recipes (RCV Resep)
+    match /recipes/{docId} {
+      allow read: if hasRole(['ADMIN', 'MANAGER']);
+      allow write: if hasRole(['ADMIN', 'MANAGER']);
+    }
+
+    // Collection: conversions (Konversi UOM)
+    match /conversions/{docId} {
+      allow read: if hasRole(['ADMIN', 'MANAGER']);
+      allow write: if hasRole(['ADMIN', 'MANAGER']);
+    }
+
+    // Collection: counters (Sequence numbers for SPB, etc.)
+    match /counters/{docId} {
+      allow read: if isActiveUser();
+      allow write: if isActiveUser();
+    }
+  }
+}

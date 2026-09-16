@@ -1,0 +1,33 @@
+rules_version = '2';
+service firebase.storage {
+  match /b/{bucket}/o {
+    
+    function isAuthenticated() {
+      return request.auth != null;
+    }
+
+    function getUserData() {
+      return firestore.get(/databases/(default)/documents/users/$(request.auth.uid)).data;
+    }
+
+    function isActiveUser() {
+      return isAuthenticated() && 
+        firestore.exists(/databases/(default)/documents/users/$(request.auth.uid)) && 
+        (getUserData().status == 'AKTIF' || getUserData().status == 'ACTIVE');
+    }
+
+    function hasRole(allowedRoles) {
+      return isActiveUser() && (getUserData().role in allowedRoles);
+    }
+
+    match /items/{itemId}/{allPaths=**} {
+      allow read: if isActiveUser();
+      allow write: if hasRole(['ADMIN', 'MANAGER']);
+    }
+    
+    match /{allPaths=**} {
+      allow read: if isActiveUser();
+      allow write: if hasRole(['ADMIN']);
+    }
+  }
+}

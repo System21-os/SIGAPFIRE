@@ -1,0 +1,21 @@
+{
+  "name": "sigap-firebase",
+  "version": "1.0.0",
+  "description": "SIGAP Inventory System Firebase Application",
+  "main": "src/index.js",
+  "scripts": {
+    "start": "firebase serve",
+    "deploy": "firebase deploy",
+    "migrate": "node scripts/migrateAppsScriptData.js",
+    "test:parity": "node scripts/verifyDataParity.js"
+  },
+  "dependencies": {
+    "firebase-admin": "^12.0.0"
+  },
+  "devDependencies": {
+    "firebase-tools": "^13.0.0"
+  },
+  "engines": {
+    "node": ">=18"
+  }
+}

@@ -1,0 +1,45 @@
+{
+  "indexes": [
+    {
+      "collectionGroup": "inbound",
+      "queryScope": "COLLECTION",
+      "fields": [
+        { "fieldPath": "namaItem", "order": "ASCENDING" },
+        { "fieldPath": "rawDate", "order": "ASCENDING" }
+      ]
+    },
+    {
+      "collectionGroup": "outbound",
+      "queryScope": "COLLECTION",
+      "fields": [
+        { "fieldPath": "namaItem", "order": "ASCENDING" },
+        { "fieldPath": "rawDate", "order": "ASCENDING" }
+      ]
+    },
+    {
+      "collectionGroup": "outbound",
+      "queryScope": "COLLECTION",
+      "fields": [
+        { "fieldPath": "noSpb", "order": "ASCENDING" },
+        { "fieldPath": "rawDate", "order": "DESCENDING" }
+      ]
+    },
+    {
+      "collectionGroup": "masterItems",
+      "queryScope": "COLLECTION",
+      "fields": [
+        { "fieldPath": "status", "order": "ASCENDING" },
+        { "fieldPath": "namaItem", "order": "ASCENDING" }
+      ]
+    },
+    {
+      "collectionGroup": "stockOpname",
+      "queryScope": "COLLECTION",
+      "fields": [
+        { "fieldPath": "periode", "order": "ASCENDING" },
+        { "fieldPath": "namaItem", "order": "ASCENDING" }
+      ]
+    }
+  ],
+  "fieldOverrides": []
+}
